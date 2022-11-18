@@ -15,5 +15,18 @@ In questa esperienza di laboratorio, si è presentata la board Arduino Nano 33 B
 \end{figure}
 Inoltre, è presente un chip per la crittografia ATECC608A e un convertitore DC-DC MPM3610. Il microprocessore è integrato nel modulo NINA B306 (\SI{64}{\mega\hertz} Arm Cortex-M4F) che fornisce anche un modulo Bluetooth 5, con supporto multiprotocollo. La board viene alimentata con una tensione di \SI{3.3}{\volt}. Tipicamente l'alimentazione è fornita tramite la porta USB che viene anche utilizzata per il caricamento del firmware tramite l'Arduino IDE.
 
-
+Si è testato il funzionamento dell'accelerometro tramite il seguente sketch che permette di ricavare le misure delle accelerazioni proprie dall'accelerometro. Di seguito si riporta il codice del firmware caricato sulla board tramite l'Arudino IDE. In particolare, le misure sono ricavate dal buffer dell'accelerometro e sono poi scritte sulla porta seriale secondo il formato "{x} {y} {z}".
 \lstinputlisting[language=c]{./OtherFiles/firmware.c}
+
+Inoltre, è possibile visualizzare graficamente i dati scritti sulla porta seriale tramite il \textit{Serial Plotter} fornito dall'ambiente di sviluppo di Arduino. Nella figura \ref{fig:serial_plotter} è possibile vedere un esempio di acquisizione dei dati, in cui l'arduino viene tenuto fermo su un piano. In queste condizioni si noti che l'unica accelerazione misurata è l'accelerazione di gravità con un valore misurato pari a circa \SI{9.9}{\meter \per \second^2}
+\begin{figure}[tbh]
+	\centering
+	\begin{minipage}{.45\textwidth}
+		\includegraphics[width=\linewidth]{./ImageFiles/fermo.jpg}
+	\end{minipage}
+	\begin{minipage}{.45\textwidth}
+		\includegraphics[width=\linewidth]{./ImageFiles/testa in giù.jpg}
+	\end{minipage}
+	\caption{Grafici di alcune misure dell'accelerometro. Nelle immagini si può notare l'accelerazione di gravità misurata sull'asse z con segno positivo (immagine a sinistra) e segno negativo (immagine a destra).}
+	\label{fig:serial_plotter}
+\end{figure}
