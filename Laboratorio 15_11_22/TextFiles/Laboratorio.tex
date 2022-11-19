@@ -18,7 +18,7 @@ Inoltre, è presente un chip per la crittografia ATECC608A e un convertitore DC-
 Si è testato il funzionamento dell'accelerometro tramite il seguente sketch che permette di ricavare le misure delle accelerazioni proprie dall'accelerometro. Di seguito si riporta il codice del firmware caricato sulla board tramite l'Arudino IDE. In particolare, le misure sono ricavate dal buffer dell'accelerometro e sono poi scritte sulla porta seriale secondo il formato "{x} {y} {z}".
 \lstinputlisting[language=c]{./OtherFiles/firmware.c}
 
-Inoltre, è possibile visualizzare graficamente i dati scritti sulla porta seriale tramite il \textit{Serial Plotter} fornito dall'ambiente di sviluppo di Arduino. Nella figura \ref{fig:serial_plotter} è possibile vedere un esempio di acquisizione dei dati, in cui l'arduino viene tenuto fermo su un piano. In queste condizioni si noti che l'unica accelerazione misurata è l'accelerazione di gravità con un valore misurato pari a circa \SI{9.9}{\meter \per \second^2}
+Inoltre, è possibile visualizzare graficamente i dati scritti sulla porta seriale tramite il \textit{Serial Plotter} fornito dall'ambiente di sviluppo di Arduino. Nella figura \ref{fig:serial_plotter} è possibile vedere un esempio di acquisizione dei dati, in cui l'Arduino viene tenuto fermo su un piano. In queste condizioni si noti che l'unica accelerazione misurata è l'accelerazione di gravità con un valore misurato pari a circa \SI{9.9}{\meter \per \second^2}.
 \begin{figure}[tbh]
 	\centering
 	\begin{minipage}{.45\textwidth}
@@ -30,3 +30,32 @@ Inoltre, è possibile visualizzare graficamente i dati scritti sulla porta seria
 	\caption{Grafici di alcune misure dell'accelerometro. Nelle immagini si può notare l'accelerazione di gravità misurata sull'asse z con segno positivo (immagine a sinistra) e segno negativo (immagine a destra).}
 	\label{fig:serial_plotter}
 \end{figure}
+
+Successivamente è stato utilizzato Matlab per analizzare le misure dell'accelerometro ottenute con l'Arduino. In particolare è stato considerato un set di dati generati effettuando movimenti dell'Arduino lungo l'asse x con un tempo di campionamento di circa \SI{100}{m\second} (in figura \ref{fig:plot_dati}).
+\begin{figure}[tbh]
+	\centering		\includegraphics[width=7cm]{./ImageFiles/plot1_arr2.png}
+	\caption{Grafico del set di dati analizzato con un tempo di campionamento di circa \SI{100}{m\second}.}
+	\label{fig:plot_dati}
+\end{figure}
+
+L'obiettivo di questa analisi consiste nell'individuare la frequenza principale del segnale ottenuto dalle misure in seguito a un loro filtraggio realizzato tramite un filtro digitale.
+
+Innanzitutto per l'implementazione del filtro digitale è stato utilizzato il comando \textit{movmean} di Matlab, che consente di realizzare un filtro digitale a media mobile. In particolare è stato impostato un grado del filtro pari a 10. I dati filtrati sono stati riportati nella figura \ref{fig:plot_dati_filt}.
+\begin{figure}[tbh]
+	\centering		\includegraphics[width=7cm]{./ImageFiles/plot1filt_arr2.png}
+	\caption{Grafico del set di dati filtrato.}
+	\label{fig:plot_dati_filt}
+\end{figure}
+
+Successivamente per determinare il valore della frequenza desiderata, abbiamo utilizzato due metodi.
+
+Il primo prevede di calcolare i picchi presenti nel segnale. Per fare ciò sono stati utilizzati i comandi \textit{gradient} e \textit{diff} di Matlab, che consentono di determinare rispettivamente il gradiente e le differenze tra i gradienti di dati adiacenti in modo da valutare come la pendenza del segnale cambia segno con lo scopo di rilevare il numero dei picchi presenti nel segnale.
+
+Il secondo metodo, invece, prevede di considerare la Trasformata di Fourier con il comando \textit{fft} di Matlab ponendo una frequenza di campionamento pari a \SI{10}{\hertz}.
+\begin{figure}[tbh]
+	\centering		\includegraphics[width=7cm]{./ImageFiles/plot2_arr2.png}
+	\caption{Grafico della Trasformata di Fourier del set di dati filtrato.}
+	\label{fig:plot_fft}
+\end{figure}
+
+In entrambi i metodi (come si può notare anche dalla figura \ref{fig:plot_fft} relativa al plot ottenuto applicando il secondo metodo) è stata ottenuta una frequenza pari a \SI{0.6}{\hertz}.
