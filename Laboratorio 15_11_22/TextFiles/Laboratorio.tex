@@ -31,10 +31,10 @@ Inoltre, è possibile visualizzare graficamente i dati scritti sulla porta seria
 	\label{fig:serial_plotter}
 \end{figure}
 
-Successivamente è stato utilizzato Matlab per analizzare le misure dell'accelerometro ottenute con l'Arduino. In particolare è stato considerato un set di dati generati effettuando movimenti dell'Arduino lungo l'asse x con un tempo di campionamento di circa \SI{100}{m\second} (in figura \ref{fig:plot_dati}).
+Successivamente è stato utilizzato Matlab per analizzare le misure dell'accelerometro ottenute con Arduino. In particolare questi dati sono stati generati muovendo Arduino lungo l'asse x con un tempo di campionamento di \SI{100}{m\second} (in figura \ref{fig:plot_dati}).
 \begin{figure}[tbh]
 	\centering		\includegraphics[width=7cm]{./ImageFiles/plot1_arr2.png}
-	\caption{Grafico del set di dati analizzato con un tempo di campionamento di circa \SI{100}{m\second}.}
+	\caption{Grafico del set di dati.}
 	\label{fig:plot_dati}
 \end{figure}
 
@@ -47,15 +47,19 @@ Innanzitutto per l'implementazione del filtro digitale è stato utilizzato il co
 	\label{fig:plot_dati_filt}
 \end{figure}
 
-Successivamente per determinare il valore della frequenza desiderata, abbiamo utilizzato due metodi.
+In seguito per determinare il valore della frequenza desiderata, sono stati utilizzati due metodi.
 
-Il primo prevede di calcolare i picchi presenti nel segnale. Per fare ciò sono stati utilizzati i comandi \textit{gradient} e \textit{diff} di Matlab, che consentono di determinare rispettivamente il gradiente e le differenze tra i gradienti di dati adiacenti in modo da valutare come la pendenza del segnale cambia segno con lo scopo di rilevare il numero dei picchi presenti nel segnale.
+Il primo prevede di calcolare i picchi presenti nel segnale. Quindi sono stati utilizzati i comandi \textit{gradient} e \textit{diff} di Matlab, che consentono di determinare rispettivamente il gradiente e le differenze tra i gradienti di dati adiacenti e perciò di valutare come la pendenza del segnale filtrato (denominato filt) cambia segno con lo scopo di rilevare il numero dei picchi presenti nel segnale.
+\lstinputlisting[language=Matlab]{./OtherFiles/metodo1.m}
 
-Il secondo metodo, invece, prevede di considerare la Trasformata di Fourier con il comando \textit{fft} di Matlab ponendo una frequenza di campionamento pari a \SI{10}{\hertz}.
+La frequenza risultante dall'applicazione del precedente metodo è pari a \SI{0.6}{\hertz} per ciascuna componente dei dati.
+
+Il secondo metodo, invece, considera la Trasformata di Fourier con il comando \textit{fft} di Matlab ponendo una frequenza di campionamento pari a \SI{10}{\hertz}.
+\lstinputlisting[language=Matlab]{./OtherFiles/metodo2.m}
+
+Nella figura \ref{fig:plot_fft} viene messa in evidenza la frequenza principale del segnale filtrato, che risulta essere anche in questo caso pari a \SI{0.6}{\hertz}.
 \begin{figure}[tbh]
 	\centering		\includegraphics[width=7cm]{./ImageFiles/plot2_arr2.png}
 	\caption{Grafico della Trasformata di Fourier del set di dati filtrato.}
 	\label{fig:plot_fft}
 \end{figure}
-
-In entrambi i metodi (come si può notare anche dalla figura \ref{fig:plot_fft} relativa al plot ottenuto applicando il secondo metodo) è stata ottenuta una frequenza pari a \SI{0.6}{\hertz}.

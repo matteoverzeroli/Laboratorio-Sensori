@@ -1,14 +1,14 @@
-s = serial('COM7','BAU',115200,'terminator','LF');
-fopen(s);
-
-arr2 = nan(100,3);
-
-for i=1:100
-    arr2(i,:) = fscanf(s,'%f %f %f');
-    pause(0.1);
-end
-
-fclose(s);
+% s = serial('COM7','BAU',115200,'terminator','LF');
+% fopen(s);
+% 
+% arr2 = nan(100,3);
+% 
+% for i=1:100
+%     arr2(i,:) = fscanf(s,'%f %f %f');
+%     pause(0.1);
+% end
+% 
+% fclose(s);
 
 %%
 t=0:1:length(arr2)-1;
