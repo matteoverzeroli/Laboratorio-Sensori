@@ -17,7 +17,7 @@ t=t*0.1;
 plot(t, arr2);
 legend('X', 'Y', 'Z');
 xlabel('t [s]');
-ylabel('a [mg]');
+ylabel('a [g]');
 
 % Grafico 2
 arr2 = arr2 - mean(arr2,1); 
@@ -25,7 +25,7 @@ filt = movmean(arr2,10);
 plot(t, filt);
 legend('X', 'Y', 'Z');
 xlabel('t [s]');
-ylabel('a [mg]');
+ylabel('a [g]');
 
 freq=sum(diff(gradient(filt)>0)==-1,1)./10
 
