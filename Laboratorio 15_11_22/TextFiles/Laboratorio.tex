@@ -48,10 +48,10 @@ L'obiettivo di questa analisi consiste nell'individuare la componente in frequen
 \newpage
 In seguito, per determinare il valore della frequenza desiderata sono stati utilizzati due metodi. Il primo prevede di calcolare i picchi presenti nel segnale: sono stati utilizzati i comandi \textit{gradient} e \textit{diff} di Matlab per determinare rispettivamente il gradiente e le differenze tra i gradienti di dati adiacenti, valutando quando la derivata del segnale filtrato (denominato \textit{filt}) cambia segno (da positivo a negativo), con lo scopo di rilevare il numero dei picchi presenti nel segnale.
 \lstinputlisting[language=Matlab]{./OtherFiles/metodo1.m}
-La frequenza risultante dall'applicazione del precedente metodo è pari a \SI{0.6}{\hertz} per ciascuna componente dei dati.
-Il secondo metodo, invece, utilizza la Fast Fourier Transform calcolata con il comando \textit{fft} di Matlab definendo la frequenza di campionamento pari a \SI{10}{\hertz}.
+La frequenza risultante dall'applicazione del precedente metodo è pari a \SI{0.6}{\hertz}. Infatti, vengono rilevati correttamente 6 picchi nella finestra temporale di \SI{10}{\second}.
+Il secondo metodo, invece, utilizza la Fast Fourier Transform calcolata con il comando \textit{fft} di Matlab.
 \lstinputlisting[language=Matlab]{./OtherFiles/metodo2.m}
-Nella figura \ref{fig:plot_fft} è possibile vedere che la componente in frequenza principale del segnale filtrato è pari a \SI{0.6}{\hertz}.
+Nella figura \ref{fig:plot_fft} è possibile vedere che la componente in frequenza principale del segnale filtrato è pari a \SI{0.6}{\hertz}. La frequenza calcolata è quindi uguale a quella calcolata con il metodo precedente.
 \begin{figure}[tbh]
 	\centering		
 	\includegraphics[width=0.6\linewidth]{./ImageFiles/plot2_arr2.png}
